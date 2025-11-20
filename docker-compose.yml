@@ -7,7 +7,7 @@ services:
     container_name: mvs-clothing_db
     restart: unless-stopped
     volumes:
-      - postgres_clothing_data:/var/lib/postgresql/data
+      - postgres_clothing_data:/var/lib/postgresql
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
@@ -20,7 +20,6 @@ services:
       timeout: 5s
       retries: 5
 
-  # Redis для clothing (отдельный инстанс)
   redis_clothing:
     image: redis:latest
     container_name: mvs-clothing_redis
@@ -36,7 +35,6 @@ services:
       retries: 5
     command: redis-server --appendonly yes --port 6380
 
-  # Django Web Application для clothing
   web_clothing:
     build:
       context: ./backend
@@ -67,7 +65,6 @@ services:
     expose:
       - "8002"
 
-  # Celery Worker для clothing
   celery_clothing:
     build:
       context: ./backend
@@ -92,7 +89,6 @@ services:
     networks:
       - clothing_internal
 
-  # Nginx для clothing
   nginx_clothing:
     image: nginx:latest
     container_name: mvs-clothing_nginx
