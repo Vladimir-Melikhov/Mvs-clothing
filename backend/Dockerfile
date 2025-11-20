@@ -7,6 +7,7 @@ ENV PYTHONUNBUFFERED=1 \
 
 WORKDIR /app
 
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     postgresql-client \
     libpq-dev \
@@ -15,23 +16,30 @@ RUN apt-get update && apt-get install -y \
     netcat-traditional \
     && rm -rf /var/lib/apt/lists/*
 
+# Install Python dependencies
 COPY requirements.txt .
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
+# Copy project files
 COPY . .
 
+# Create necessary directories
 RUN mkdir -p /app/staticfiles /app/media /app/logs
 
+# Collect static files
 RUN python manage.py collectstatic --noinput || true
 
+# Make manage.py executable
 RUN chmod +x /app/manage.py
 
+# Create non-root user
 RUN useradd -m -u 1000 django && \
     chown -R django:django /app
 
 USER django
 
-EXPOSE 8000
+EXPOSE 8002
 
-CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "4", "--timeout", "120"]
+# Use gunicorn config file
+CMD ["gunicorn", "config.wsgi:application", "--config", "gunicorn.conf.py"]
