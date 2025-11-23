@@ -15,8 +15,12 @@ ALLOWED_HOSTS = config(
     cast=lambda v: [s.strip() for s in v.split(',')]
 )
 
-FRONTEND_URL = config("FRONTEND_URL", default="http://localhost:5173")
+FRONTEND_URL = config("FRONTEND_URL", default="https://mvs-clothing.site")
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://mvs-clothing.site',
+    'https://www.mvs-clothing.site',
+]
 
 
 DJANGO_APPS = [
