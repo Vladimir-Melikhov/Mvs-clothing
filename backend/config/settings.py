@@ -1,9 +1,10 @@
 from pathlib import Path
 from datetime import timedelta
 from decouple import config
+import os
 
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("SECRET_KEY")
 
@@ -231,9 +232,9 @@ SIMPLE_JWT = {
 # ==============================================================================
 
 
-CORS_ALLOW_ALL_ORIGINS = DEBUG
-
 CORS_ALLOWED_ORIGINS = [
+    "https://mvs-clothing.site",
+    "https://www.mvs-clothing.site",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://localhost:5173",
@@ -324,7 +325,10 @@ STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET", default="")
 # ==============================================================================
 
 LOGS_DIR = BASE_DIR / "logs"
-LOGS_DIR.mkdir(exist_ok=True)
+try:
+    LOGS_DIR.mkdir(exist_ok=True, parents=True)
+except (PermissionError, OSError):
+    pass  
 
 LOGGING = {
     "version": 1,

@@ -12,10 +12,8 @@ services:
       - POSTGRES_DB=${DB_NAME:-mvs_clothing_db}
       - POSTGRES_USER=${DB_USER:-mvs_clothing_user}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-change_me_in_production}
-    # Порт закрыт для внешнего доступа - только внутри Docker сети
-    # Для отладки можно временно раскомментировать:
-    # ports:
-    #   - "5432:5432"
+
+
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-mvs_clothing_user}"]
       interval: 10s
@@ -30,10 +28,7 @@ services:
     container_name: mvs-clothing_redis
     restart: unless-stopped
     command: redis-server --port 6379 --maxmemory 256mb --maxmemory-policy allkeys-lru
-    # Порт закрыт для внешнего доступа - только внутри Docker сети
-    # Для отладки можно временно раскомментировать:
-    # ports:
-    #   - "6379:6379"
+
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -62,10 +57,7 @@ services:
       - DB_PORT=5432
       - CELERY_BROKER_URL=redis://redis_clothing:6379/0
       - CELERY_RESULT_BACKEND=redis://redis_clothing:6379/0
-    # Порт закрыт - доступ только через Nginx
-    # Для отладки можно временно раскомментировать:
-    # ports:
-    #   - "8000:8000"
+
     depends_on:
       db_clothing:
         condition: service_healthy
@@ -80,7 +72,7 @@ services:
     networks:
       - mvs_network
 
-  # Celery Worker
+
   celery_clothing:
     build:
       context: ./backend

@@ -1,8 +1,8 @@
 import multiprocessing
 import os
 
-# Bind to port 8002 (different from movie project)
-bind = "0.0.0.0:8002"
+
+bind = "0.0.0.0:8000"
 backlog = 2048
 
 # Worker configuration
