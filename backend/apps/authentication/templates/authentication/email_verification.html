@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Georgia&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #000000;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            transition: background-color 0.7s ease, color 0.7s ease;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .subtle-grid {
+            position: absolute;
+            inset: 0;
+            opacity: 0.05;
+            background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+            background-size: 100px 100px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .title {
+            font-family: 'Georgia', serif;
+            font-size: 48px;
+            font-weight: 100;
+            letter-spacing: 0.3em;
+            margin-bottom: 8px;
+            color: #000000;
+        }
+        
+        .divider {
+            height: 1px;
+            width: 128px;
+            margin: 32px auto;
+            background-color: rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 12px;
+            letter-spacing: 0.4em;
+            font-weight: 300;
+            opacity: 0.4;
+            color: #6b7280;
+            margin-bottom: 12px;
+        }
+        
+        .main-text {
+            font-size: 24px;
+            font-weight: 100;
+            letter-spacing: 0.2em;
+            opacity: 0.9;
+            color: #000000;
+            margin-bottom: 80px;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin: 48px 0;
+        }
+        
+        .button {
+            position: relative;
+            padding: 16px 48px;
+            font-size: 12px;
+            letter-spacing: 0.3em;
+            font-weight: 300;
+            border: 1px solid rgba(0,0,0,0.2);
+            background-color: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            display: inline-block;
+            overflow: hidden;
+            transition: all 0.7s ease;
+        }
+        
+        .button:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+        
+        .button span {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .alternative {
+            text-align: center;
+            margin: 24px 0;
+            font-size: 14px;
+            color: #666666;
+        }
+        
+        .link {
+            word-break: break-all;
+            color: #007bff;
+            font-size: 14px;
+            margin: 16px 0;
+        }
+        
+        .note {
+            color: #666666;
+            font-size: 14px;
+            margin-top: 48px;
+            text-align: center;
+            opacity: 0.8;
+            letter-spacing: 0.1em;
+            font-weight: 300;
+        }
+        
+        .philosophy-section {
+            padding: 48px 0;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            background-color: #1a1a1a;
+            color: #cccccc;
+            margin-top: 64px;
+        }
+        
+        .philosophy-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .philosophy-divider {
+            height: 1px;
+            width: 48px;
+            background-color: rgba(255,255,255,0.2);
+            margin-bottom: 32px;
+        }
+        
+        .philosophy-title {
+            font-size: 24px;
+            font-weight: 100;
+            letter-spacing: 0.25em;
+            opacity: 0.9;
+            color: #b4b4b4;
+            margin-bottom: 24px;
+        }
+        
+        .philosophy-text {
+            font-size: 14px;
+            line-height: 1.8;
+            opacity: 0.8;
+            letter-spacing: 0.1em;
+            font-weight: 300;
+            color: #9c9c9c;
+        }
+        
+        .footer {
+            padding: 64px 20px 32px;
+            background-color: #1a1a1a;
+            color: #b4b4b4;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+        }
+        
+        .footer-title {
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 0.25em;
+            opacity: 0.9;
+            color: #787878;
+            margin-bottom: 24px;
+        }
+        
+        .footer-text {
+            font-size: 12px;
+            line-height: 1.8;
+            opacity: 0.7;
+            letter-spacing: 0.1em;
+            font-weight: 300;
+            color: #c8c8c8;
+            margin-bottom: 32px;
+        }
+        
+        .footer-divider {
+            height: 1px;
+            background-color: rgba(255,255,255,0.2);
+            margin: 32px 0;
+        }
+        
+        .copyright {
+            font-size: 12px;
+            opacity: 0.6;
+            letter-spacing: 0.15em;
+            font-weight: 300;
+            color: #b4b4b4;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1a1a1a;
+                color: #ffffff;
+            }
+            
+            .title {
+                color: #ffffff;
+            }
+            
+            .main-text {
+                color: #ffffff;
+            }
+            
+            .divider {
+                background-color: rgba(255,255,255,0.2);
+            }
+            
+            .subtitle {
+                color: #9ca3af;
+            }
+            
+            .button {
+                border-color: rgba(255,255,255,0.2);
+                background-color: #1a1a1a;
+                color: #ffffff;
+            }
+            
+            .button:hover {
+                background-color: rgba(255,255,255,0.05);
+            }
+            
+            .alternative, .note {
+                color: #999999;
+            }
+            
+            .link {
+                color: #60a5fa;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="subtle-grid"></div>
+        <div class="header">
+            <h1 class="title">WELCOME</h1>
+            <div class="divider"></div>
+            <p class="subtitle">VERIFY YOUR EMAIL</p>
+            <p class="main-text">2025</p>
+        </div>
+        
+        <p style="text-align: center; font-size: 14px; opacity: 0.8; letter-spacing: 0.1em; font-weight: 300; margin-bottom: 48px;">
+            Thank you for registering. Please confirm your email address by clicking the button below.
+        </p>
+        
+        <div class="button-container">
+            <a href="{{ verification_url }}" class="button">
+                <span>VERIFY EMAIL</span>
+            </a>
+        </div>
+        
+        <p class="alternative">Or copy this link into your browser:</p>
+        <p class="link">{{ verification_url }}</p>
+        
+        <p class="note">If you did not register on our site, simply ignore this email.</p>
+    </div>
+    
+    <section class="philosophy-section">
+        <div class="philosophy-container">
+            <div class="philosophy-divider"></div>
+            <h3 class="philosophy-title">PHILOSOPHY</h3>
+            <p class="philosophy-text">
+                In the space between light and dark, we find our essence. Each piece speaks in whispers, demanding attention through absence rather than presence.
+            </p>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <h4 class="footer-title">MVS</h4>
+        <p class="footer-text">Form follows darkness</p>
+        <div class="footer-divider"></div>
+        <p class="copyright">© 2025 MVS</p>
+    </footer>
+</body>
+</html>
